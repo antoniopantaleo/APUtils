@@ -39,4 +39,36 @@ final class CollectionTests: XCTestCase {
         XCTAssertEqual(collection.occurences(of: angela), 1)
         XCTAssertEqual(collection.occurences(of: creed), 0)
     }
+    
+    
+    func test_safe_access_collection() throws {
+        // Given
+        let collection = [1,2,3,4]
+        
+        // Then
+        XCTAssertEqual(collection[safe: 0], 1)
+        XCTAssertEqual(collection[safe: 1], 2)
+        XCTAssertEqual(collection[safe: 2], 3)
+        XCTAssertEqual(collection[safe: 3], 4)
+        XCTAssertNil(collection[safe: 4])
+    }
+    
+    func test_default_fallback_subscript() throws {
+        // Given
+        let collection = ["Dwight", "Jim", "Pam"]
+        let someStringClosure: () -> String = {
+            var s = "Andy"
+            s += " "
+            s += "Bernard"
+            return s
+        }
+        
+        // Then
+        XCTAssertEqual(collection[0, default: "Michael"], "Dwight")
+        XCTAssertEqual(collection[1, default: "Michael"], "Jim")
+        XCTAssertEqual(collection[2, default: "Michael"], "Pam")
+        XCTAssertEqual(collection[3, default: "Michael"], "Michael")
+        XCTAssertEqual(collection[4, default: someStringClosure()], "Andy Bernard")
+        
+    }
 }
