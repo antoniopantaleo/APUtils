@@ -59,3 +59,11 @@ public extension Array {
     }
     
 }
+
+public extension RangeReplaceableCollection {
+    func intersection<S: Sequence>(_ sequence: S) -> Self where S.Element == Element, Element: Hashable {
+        var set = Set(sequence)
+        return filter { !set.insert($0).inserted }
+    }
+    
+}
