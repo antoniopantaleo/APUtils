@@ -1,4 +1,5 @@
 import XCTest
+import Combine
 @testable import APUtils
 
 final class CollectionTests: XCTestCase {
@@ -70,5 +71,33 @@ final class CollectionTests: XCTestCase {
         XCTAssertEqual(collection[3, default: "Michael"], "Michael")
         XCTAssertEqual(collection[4, default: someStringClosure()], "Andy Bernard")
         
+    }
+    
+    func testCollection_mergeToAnyPublisher() {
+        // Given
+        let publisher1 = Just(1)
+        let publisher2 = Just(2)
+        let publisher3 = Just(3)
+        let mergedPublisher = [publisher1, publisher2, publisher3].mergeToAnyPublisher()
+        let expectation = expectation(description: "publisher")
+        // Then
+        let cancellable = mergedPublisher
+            .sink { completion in
+                switch completion {
+                    case .finished:
+                        expectation.fulfill()
+                    case .failure(let error):
+                        XCTFail("Unexpected error " + error.localizedDescription)
+                }
+            } receiveValue: { value in
+                XCTAssertTrue(
+                    value == 1 ||
+                    value == 2 ||
+                    value == 3
+                )
+            }
+        // When
+        wait(for: [expectation], timeout: 2)
+        cancellable.cancel()
     }
 }
