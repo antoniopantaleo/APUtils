@@ -10,8 +10,8 @@ Text
 
 ### Extensions
 
-- <doc:Collection>
 - <doc:Codable>
+- <doc:Collection>
 - <doc:Optional>
 - <doc:String>
 - <doc:UIView>
