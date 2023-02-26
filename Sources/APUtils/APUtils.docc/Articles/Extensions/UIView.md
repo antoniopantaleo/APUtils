@@ -24,3 +24,16 @@ If you need to define an autolayouted `UICollectionView` you can do it with `aut
 let collectionView = UICollectionView.autolayout(collectionViewLayout: UICollectionViewLayout())
 print(collectionView.translatesAutoresizingMaskIntoConstraints) // false
 ```
+
+ 
+
+You can add multiple subviews using variadic parameters with `addSubviews(_)`
+```swift
+let containerView = UIView()
+
+let subView1 = UIView()
+let subView2 = UIView()
+let subView3 = UIView()
+
+containerView.addSubviews(subView1, subView2, subView3)
+```
