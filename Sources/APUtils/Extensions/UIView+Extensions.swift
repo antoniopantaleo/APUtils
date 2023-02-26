@@ -37,5 +37,4 @@ public extension UICollectionView {
     }
     
 }
-
 #endif
