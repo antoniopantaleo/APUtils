@@ -11,42 +11,49 @@ import UIKit
 
 final class AutoLayoutBuilderTests: XCTestCase {
     
+    var sut: UIView!
+    
+    override func setUp() {
+        sut = UIView.autolayout
+        super.setUp()
+    }
+    
+    override class func tearDown() {
+        super.tearDown()
+        sut = nil
+    }
+    
     func testAutoLayoutBuilder_oneView_activateOneConstraint() {
-        // Given
-        let view = UIView.autolayout
         // When
         NSLayoutConstraint.activate {
-            view.heightAnchor.constraint(equalToConstant: 100)
+            sut.heightAnchor.constraint(equalToConstant: 100)
         }
         // Then
-        XCTAssertEqual(view.constraints.count, 1)
+        XCTAssertEqual(sut.constraints.count, 1)
     }
     
     func testAutoLayoutBuilder_oneView_activateMoreThanOneConstraints() {
-        // Given
-        let view = UIView.autolayout
         // When
         NSLayoutConstraint.activate {
-            view.heightAnchor.constraint(equalToConstant: 100)
-            view.widthAnchor.constraint(equalToConstant: 100)
+            sut.heightAnchor.constraint(equalToConstant: 100)
+            sut.widthAnchor.constraint(equalToConstant: 100)
         }
         // Then
-        XCTAssertEqual(view.constraints.count, 2)
+        XCTAssertEqual(sut.constraints.count, 2)
     }
     
     func testAutoLayoutBuilder_oneView_activateConditionalsConstraints() {
         // Given
-        let view = UIView.autolayout
         let condition = false
         // When
         NSLayoutConstraint.activate {
-            view.heightAnchor.constraint(equalToConstant: 100)
+            sut.heightAnchor.constraint(equalToConstant: 100)
             if condition {
-                view.widthAnchor.constraint(equalToConstant: 100)
+                sut.widthAnchor.constraint(equalToConstant: 100)
             }
         }
         // Then
-        XCTAssertEqual(view.constraints.count, 1)
+        XCTAssertEqual(sut.constraints.count, 1)
     }
     
 }

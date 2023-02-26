@@ -28,9 +28,6 @@ final class TypealiasTests: XCTestCase {
     
     func testPair_withStructs() {
         // Given
-        struct Employee: Equatable {
-            let name: String
-        }
         let michael = Employee(name: "Michael")
         let dwight = Employee(name: "Dwight")
         let pair = Pair(michael, dwight)

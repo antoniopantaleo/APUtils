@@ -4,7 +4,7 @@ import Combine
 
 final class CollectionTests: XCTestCase {
     
-    func testCollectiohn_occurences_withStrings() throws {
+    func testCollectiohn_occurences_withStrings() {
         // Given
         let collection = ["Jim", "Kevin", "Pam", "Dwight", "Dwight", "Kevin", "Angela", "Kevin"]
         
@@ -17,12 +17,8 @@ final class CollectionTests: XCTestCase {
         XCTAssertEqual(collection.occurences(of: "Creed"), 0)
     }
     
-    func testCollection_occurences_withStruct() throws {
+    func testCollection_occurences_withStruct() {
         // Given
-        struct Employee: Hashable {
-            let name: String
-            let department: String
-        }
         let jim = Employee(name: "Jim", department: "Sellings")
         let kevin = Employee(name: "Kevin", department: "Accounting")
         let pam = Employee(name: "Pam", department: "Reception")
@@ -42,7 +38,7 @@ final class CollectionTests: XCTestCase {
     }
     
     
-    func testCollection_safeAccess() throws {
+    func testCollection_safeAccess() {
         // Given
         let collection = [1,2,3,4]
         
@@ -54,7 +50,7 @@ final class CollectionTests: XCTestCase {
         XCTAssertNil(collection[safe: 4])
     }
     
-    func testCollection_defaultSubsrcript() throws {
+    func testCollection_defaultSubsrcript() {
         // Given
         let collection = ["Dwight", "Jim", "Pam"]
         let someStringClosure: () -> String = {
