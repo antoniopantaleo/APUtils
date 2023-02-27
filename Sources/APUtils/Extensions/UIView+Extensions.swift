@@ -11,12 +11,16 @@ import UIKit
 
 public extension UIView {
     
+    /// Activate autolayout for the view
     static var autolayout: Self {
         let `self` = Self()
         `self`.translatesAutoresizingMaskIntoConstraints = false
         return `self`
     }
     
+    
+    /// Adds a list of views on top of the current view
+    /// - Parameter views: The views to add
     func addSubviews(_ views: UIView...) {
         views.forEach {
             self.addSubview($0)
@@ -27,6 +31,8 @@ public extension UIView {
 
 public extension UICollectionView {
     
+    /// Activate autolayout for the collection view
+    /// - Parameter collectoinViewLayout: The layout to use
     static func autolayout(collectionViewLayout: UICollectionViewLayout) -> Self {
         let `self` = Self(
             frame: .zero,

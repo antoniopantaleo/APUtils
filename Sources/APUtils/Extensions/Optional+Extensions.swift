@@ -9,6 +9,7 @@ import Foundation
 
 public extension Optional where Wrapped == String {
     
+    /// `True` if value is nil or empty
     var isNilOrEmpty: Bool {
         switch self {
             case .some(let wrapped):
@@ -22,6 +23,7 @@ public extension Optional where Wrapped == String {
 
 public extension Optional where Wrapped: Collection {
 
+    /// `True` if value is nil or empty
     var isNilOrEmpty: Bool {
         switch self {
             case .none:
