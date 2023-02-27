@@ -1,10 +1,10 @@
 # ``APUtils``
 
-Summary
+A collection of everyday helpers
 
 ## Overview
 
-Text
+``APUtils`` is a set of functions, helpers and extensions that best support swift development
 
 ## Topics
 
