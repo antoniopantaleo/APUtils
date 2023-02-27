@@ -8,15 +8,10 @@ on:
 jobs:
   run_tests:
     runs-on: macos-11
-    strategy:
-      matrix:
-        include:
-          - xcode: "13.2"
-            ios: "15.0"
-    name: Test iOS (${{ matrix.ios }})
+    name: Test iOS
     steps:
     - uses: actions/checkout@v1
     - name: Select Xcode
       run: sudo xcode-select -switch /Applications/Xcode.app && /usr/bin/xcodebuild -version
     - name: Run unit tests
-      run: xcodebuild -scheme APUtils -destination 'platform=iOS Simulator,name=iPhone 13,OS=$' test | xcpretty && exit ${PIPESTATUS[0]}
+      run: xcodebuild -scheme APUtils -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.2' test | xcpretty && exit ${PIPESTATUS[0]}
