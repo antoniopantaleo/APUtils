@@ -61,4 +61,25 @@ final class StringTests: XCTestCase {
         XCTAssertTrue(sut.isEmpty)
     }
     
+    func testString_data_utf8Encoded() throws {
+        // Given
+        let helloWorld = "Hello world"
+        let sut = try helloWorld.encoded
+        // When
+        let res = try XCTUnwrap(sut.utf8)
+        // Then
+        XCTAssertEqual(res, helloWorld)
+    }
+    
+    func testString_format_oneString() {
+        // Given
+        let sut = "This is a %@"
+        let token = "string"
+        let expected = "This is a string"
+        // When
+        let res = sut.format(token)
+        // Then
+        XCTAssertEqual(res, expected)
+    }
+    
 }

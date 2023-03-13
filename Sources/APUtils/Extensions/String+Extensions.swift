@@ -48,3 +48,17 @@ public extension String {
     /// Return the complete lorem ipsum string
     static var loremIpsum: String { loremIpsum() }
 }
+
+public extension String {
+    
+    func format(_ arguments: CVarArg...) -> String {
+        String(format: self, arguments: arguments)
+    }
+    
+}
+
+public extension Data {
+    var utf8: String? {
+        String(data: self, encoding: .utf8)
+    }
+}
