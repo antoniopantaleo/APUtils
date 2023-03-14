@@ -64,7 +64,7 @@ final class StringTests: XCTestCase {
     func testString_data_utf8Encoded() throws {
         // Given
         let helloWorld = "Hello world"
-        let sut = try helloWorld.encoded
+        let sut = try XCTUnwrap(helloWorld.data(using: .utf8))
         // When
         let res = try XCTUnwrap(sut.utf8)
         // Then
