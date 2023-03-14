@@ -7,6 +7,8 @@
 
 import Foundation
 
+infix operator =~
+
 /// Get substring using array notation
 ///
 /// # Example
@@ -60,5 +62,37 @@ public extension String {
 public extension Data {
     var utf8: String? {
         String(data: self, encoding: .utf8)
+    }
+}
+
+
+public extension String {
+    
+    static func =~ (lhs: String, regex: String) -> Bool {
+        guard let regularExpression = try? NSRegularExpression(pattern: regex) else { return false }
+        let range = Self.makeRange(string: lhs)
+        return regularExpression.numberOfMatches(in: lhs, options: [], range: range) > 0
+    }
+    
+    func matches(for regex: String) -> [String] {
+        guard let regularExpression = try? NSRegularExpression(pattern: regex) else { return [] }
+        let range = Self.makeRange(string: self)
+        return regularExpression.matches(in: self, range: range).compactMap {
+            guard let range = Range($0.range, in: self) else { return nil }
+            return String(self[range])
+        }
+    }
+    
+    func replace(regex: String, with text: String) -> String {
+        guard let regularExpression = try? NSRegularExpression(pattern: regex) else { return self }
+        let range = Self.makeRange(string: self)
+        return regularExpression.stringByReplacingMatches(in: self, options: [], range: range, withTemplate: text)
+    }
+}
+
+fileprivate extension String {
+    
+    static func makeRange(string: String) -> NSRange {
+        NSRange(string.startIndex..., in: string)
     }
 }
