@@ -9,16 +9,16 @@ import XCTest
 
 final class CodableTests: XCTestCase {
     
-    var sut: Employee!
+    private var sut: Employee!
     
-    override func setUpWithError() throws {
+    override func setUp() {
+        super.setUp()
         sut = Employee(name: "Michael")
-        try super.setUpWithError()
     }
     
-    override func tearDownWithError() throws {
-        try super.tearDownWithError()
+    override func tearDown() {
         sut = nil
+        super.tearDown()
     }
     
     func testCodable_encodeStruct_generatesData() throws {

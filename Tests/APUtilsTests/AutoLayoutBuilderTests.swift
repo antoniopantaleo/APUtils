@@ -11,9 +11,19 @@ import UIKit
 
 final class AutoLayoutBuilderTests: XCTestCase {
     
+    private var sut: UIView!
+    
+    override func setUp() {
+        super.setUp()
+        sut = UIView.autolayout
+    }
+    
+    override func tearDown() {
+        sut = nil
+        super.tearDown()
+    }
+    
     func testAutoLayoutBuilder_oneView_activateOneConstraint() {
-        // Given
-        let sut = UIView.autolayout
         // When
         NSLayoutConstraint.activate {
             sut.heightAnchor.constraint(equalToConstant: 100)
@@ -23,8 +33,6 @@ final class AutoLayoutBuilderTests: XCTestCase {
     }
     
     func testAutoLayoutBuilder_oneView_activateMoreThanOneConstraints() {
-        // Given
-        let sut = UIView.autolayout
         // When
         NSLayoutConstraint.activate {
             sut.heightAnchor.constraint(equalToConstant: 100)
@@ -35,8 +43,6 @@ final class AutoLayoutBuilderTests: XCTestCase {
     }
     
     func testAutoLayoutBuilder_oneView_activateConditionalsConstraints() {
-        // Given
-        let sut = UIView.autolayout
         let condition = false
         // When
         NSLayoutConstraint.activate {
