@@ -69,13 +69,15 @@ public extension Data {
 public extension String {
     
     static func =~ (lhs: String, regex: String) -> Bool {
-        guard let regularExpression = try? NSRegularExpression(pattern: regex) else { return false }
+        guard let regularExpression = Self.regexCache[regex] ?? (try? NSRegularExpression(pattern: regex)) else { return false }
+        Self.regexCache[regex] = regularExpression
         let range = Self.makeRange(string: lhs)
         return regularExpression.numberOfMatches(in: lhs, options: [], range: range) > 0
     }
     
     func matches(for regex: String) -> [String] {
-        guard let regularExpression = try? NSRegularExpression(pattern: regex) else { return [] }
+        guard let regularExpression = Self.regexCache[regex] ?? (try? NSRegularExpression(pattern: regex)) else { return [] }
+        Self.regexCache[regex] = regularExpression
         let range = Self.makeRange(string: self)
         return regularExpression.matches(in: self, range: range).compactMap {
             guard let range = Range($0.range, in: self) else { return nil }
@@ -84,13 +86,16 @@ public extension String {
     }
     
     func replace(regex: String, with text: String) -> String {
-        guard let regularExpression = try? NSRegularExpression(pattern: regex) else { return self }
+        guard let regularExpression = Self.regexCache[regex] ?? (try? NSRegularExpression(pattern: regex)) else { return self }
+        Self.regexCache[regex] = regularExpression
         let range = Self.makeRange(string: self)
         return regularExpression.stringByReplacingMatches(in: self, options: [], range: range, withTemplate: text)
     }
 }
 
 fileprivate extension String {
+    
+    static var regexCache = LRUCache<String, NSRegularExpression>()
     
     static func makeRange(string: String) -> NSRange {
         NSRange(string.startIndex..., in: string)
