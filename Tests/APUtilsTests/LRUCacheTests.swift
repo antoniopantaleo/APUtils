@@ -14,7 +14,7 @@ final class LRUCacheTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        cache = .init(capacity: 4)
+        cache = .init(maxCapacity: 4)
     }
     
     override func tearDown() {
