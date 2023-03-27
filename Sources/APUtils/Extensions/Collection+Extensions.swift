@@ -74,13 +74,7 @@ public extension Collection where Element: Publisher {
     /// ```
     /// - Returns: A new publisher that emits the same `Element.Output` and `Element.Failure` whenever any of the elements emits a value
     func mergeToAnyPublisher() -> AnyPublisher<Element.Output, Element.Failure> {
-        let accumulator = Publishers.MergeMany<AnyPublisher<Element.Output, Element.Failure>>()
-        return self
-            .map({ $0.eraseToAnyPublisher()})
-            .reduce(into: accumulator) { partialResult, currentCancellable in
-                partialResult = partialResult.merge(with: currentCancellable)
-            }
-            .eraseToAnyPublisher()
+        Publishers.MergeMany(self).eraseToAnyPublisher()
     }
 }
 
