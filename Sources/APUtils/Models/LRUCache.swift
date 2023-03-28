@@ -30,14 +30,32 @@ public class LRUCache<Key: Hashable, Value> {
     private var recentlyUsedKeys: [Key] = []
     private let maxCapacity: Int
     
-    /// Creates a new cache
+    /// Creates a new LRUCache object
+    ///
     /// - Parameter maxCapacity: The max number of items to keep in memory.
     ///
-    /// Oldest unused items will be removed from the cache
+    /// Is mandatory to specify the types for the cache Key and Value
+    ///
+    /// ```swift
+    /// var stringIntLRUCache = LRUCache<String, Int>()
+    /// ```
+    ///
+    /// > If the number of items exceeds the cache capacity, the less recently used ones will be deleted
     public init(maxCapacity: Int = 20) {
         self.maxCapacity = maxCapacity
     }
     
+    /// An handy approach to deal with LRUCache
+    ///
+    /// - Parameter key: The key to save or retrieve
+    ///
+    /// This subscripts lets you interact with the cache with Dictionary-like syntax:
+    ///
+    /// ```swift
+    /// var cache = LRUCache<String: Int>()
+    /// var cache["one"] = 1 // assign values
+    /// let second = cache["second"] // retrieve values
+    /// ```
     public subscript(key: Key) -> Value? {
         get { get(key) }
         set { put(key, newValue) }
