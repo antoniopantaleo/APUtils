@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 /// Get substring using array notation
 ///
 /// # Example
@@ -47,4 +48,24 @@ public extension String {
     
     /// Return the complete lorem ipsum string
     static var loremIpsum: String { loremIpsum() }
+}
+
+public extension String {
+    /// Formats the string with the provided arguments.
+    ///
+    /// - Parameter arguments: The arguments to be formatted into the string.
+    /// - Returns: The formatted string.
+    func format(_ arguments: CVarArg...) -> String {
+        String(format: self, arguments: arguments)
+    }
+    
+}
+
+public extension Data {
+    /// Returns a UTF-8 encoded string representation of the data.
+    ///
+    /// - Note: If the data is not valid UTF-8 encoded, `nil` is returned..
+    var utf8: String? {
+        String(data: self, encoding: .utf8)
+    }
 }

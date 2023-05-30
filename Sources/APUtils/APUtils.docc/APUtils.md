@@ -16,6 +16,12 @@ A collection of everyday helpers
 - <doc:String>
 - <doc:UIView>
 
+- <doc:Regex>
+
+### Models
+
+- <doc:LRUCache>
+
 
 ### Result builders
 
