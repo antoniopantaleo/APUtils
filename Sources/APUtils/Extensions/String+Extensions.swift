@@ -7,7 +7,6 @@
 
 import Foundation
 
-infix operator =~
 
 /// Get substring using array notation
 ///
@@ -52,7 +51,10 @@ public extension String {
 }
 
 public extension String {
-    
+    /// Formats the string with the provided arguments.
+    ///
+    /// - Parameter arguments: The arguments to be formatted into the string.
+    /// - Returns: The formatted string.
     func format(_ arguments: CVarArg...) -> String {
         String(format: self, arguments: arguments)
     }
@@ -60,44 +62,10 @@ public extension String {
 }
 
 public extension Data {
+    /// Returns a UTF-8 encoded string representation of the data.
+    ///
+    /// - Note: If the data is not valid UTF-8 encoded, `nil` is returned..
     var utf8: String? {
         String(data: self, encoding: .utf8)
-    }
-}
-
-
-public extension String {
-    
-    static func =~ (lhs: String, regex: String) -> Bool {
-        guard let regularExpression = Self.regexCache[regex] ?? (try? NSRegularExpression(pattern: regex)) else { return false }
-        Self.regexCache[regex] = regularExpression
-        let range = Self.makeRange(string: lhs)
-        return regularExpression.numberOfMatches(in: lhs, options: [], range: range) > 0
-    }
-    
-    func matches(for regex: String) -> [String] {
-        guard let regularExpression = Self.regexCache[regex] ?? (try? NSRegularExpression(pattern: regex)) else { return [] }
-        Self.regexCache[regex] = regularExpression
-        let range = Self.makeRange(string: self)
-        return regularExpression.matches(in: self, range: range).compactMap {
-            guard let range = Range($0.range, in: self) else { return nil }
-            return String(self[range])
-        }
-    }
-    
-    func replace(regex: String, with text: String) -> String {
-        guard let regularExpression = Self.regexCache[regex] ?? (try? NSRegularExpression(pattern: regex)) else { return self }
-        Self.regexCache[regex] = regularExpression
-        let range = Self.makeRange(string: self)
-        return regularExpression.stringByReplacingMatches(in: self, options: [], range: range, withTemplate: text)
-    }
-}
-
-fileprivate extension String {
-    
-    static var regexCache = LRUCache<String, NSRegularExpression>()
-    
-    static func makeRange(string: String) -> NSRange {
-        NSRange(string.startIndex..., in: string)
     }
 }

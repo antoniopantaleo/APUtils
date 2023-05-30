@@ -9,7 +9,7 @@ import XCTest
 import APUtils
 
 final class StringTests: XCTestCase {
-
+    
     func testString_lowerRight_subscript() {
         // Given
         let string = "Hello World!"
@@ -83,34 +83,4 @@ final class StringTests: XCTestCase {
         XCTAssertEqual(res, expected)
     }
     
-    
-    func testRegex_matches_goodRegex() {
-        // Given
-        let sut = "This is a string with numbers: 123"
-        let regex = "[0-9]+"
-        // Then
-        XCTAssertTrue(sut =~ regex)
-    }
-    
-    func testRegex_getMatches_goodRegex() throws {
-        // Given
-        let sut = "This is a string with numbers: 123, 456"
-        let regex = "[0-9]+"
-        // When
-        let result = sut.matches(for: regex)
-        // Then
-        XCTAssertTrue(result.count > 0)
-        XCTAssertEqual(result[0], "123")
-        XCTAssertEqual(result[1], "456")
-    }
-    
-    func testRegex_replace_goodRegex() {
-        // Given
-        let sut = "This is a regex with numbers: 123"
-        let regex = "[0-9]+"
-        // When
-        let result = sut.replace(regex: regex, with: "NUMBERS HERE")
-        // Then
-        XCTAssertEqual(result, "This is a regex with numbers: NUMBERS HERE")
-    }
 }
