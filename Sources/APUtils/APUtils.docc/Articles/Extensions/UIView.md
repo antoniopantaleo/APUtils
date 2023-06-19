@@ -8,6 +8,13 @@ UIView extension simplifies the way to work with UIViews
 
 ### Methods
 
+You can get or set whether the view is visible or not
+
+```swift 
+let view = UIView.autolayout
+view.isVisible // is the opposite of `isHidden`
+```
+
 You can easily define a view that uses autolayout with `autolayout`
 
 ```swift

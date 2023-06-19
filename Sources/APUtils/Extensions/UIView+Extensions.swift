@@ -11,6 +11,13 @@ import UIKit
 
 public extension UIView {
     
+    
+    /// The opposite of `isHidden`
+    var isVisible: Bool {
+        get { !self.isHidden }
+        set { self.isHidden = !newValue }
+    }
+    
     /// Activate autolayout for the view
     static var autolayout: Self {
         let `self` = Self()

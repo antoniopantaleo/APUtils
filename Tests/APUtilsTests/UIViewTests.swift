@@ -66,5 +66,42 @@ final class UIViewTests: XCTestCase {
         // Then
         XCTAssertEqual(containerView.subviews.count, 3)
     }
+    
+    //MARK: IsVisible
+    func testUIView_isVisible() {
+        // Given
+        let view = UIView.autolayout
+        // When
+        view.isHidden = true
+        // Then
+        XCTAssertFalse(view.isVisible)
+    }
+    
+    func testUIView_isNotVisible() {
+        // Given
+        let view = UIView.autolayout
+        // When
+        view.isHidden = false
+        // Then
+        XCTAssertTrue(view.isVisible)
+    }
+    
+    func testUIView_setIsVisible() {
+        // Given
+        let view = UIView.autolayout
+        // When
+        view.isVisible = true
+        // Then
+        XCTAssertFalse(view.isHidden)
+    }
+    
+    func testUIView_setIsNotVisible() {
+        // Given
+        let view = UIView.autolayout
+        // When
+        view.isVisible = false
+        // Then
+        XCTAssertTrue(view.isHidden)
+    }
 }
 #endif
