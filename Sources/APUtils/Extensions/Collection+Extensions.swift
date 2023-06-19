@@ -83,4 +83,13 @@ public extension RangeReplaceableCollection {
         return filter { !set.insert($0).inserted }
     }
     
+    /// Concatenates the elements of a sequence with the elements of a given one
+    /// - Parameter sequence: The sequence to concatenate with
+    /// - Returns: A new sequence containing the old values plus the new ones
+    func concatenate<S: Sequence>(with sequence: S) -> Self where S.Element == Element {
+        var `self` = self
+        `self`.append(contentsOf: sequence)
+        return `self`
+    }
+    
 }

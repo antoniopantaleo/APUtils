@@ -120,4 +120,15 @@ final class CollectionTests: XCTestCase {
         XCTAssertEqual(intersection.first!, "Jim")
     }
     
+    func testCollection_concatenate() {
+        // Given
+        let collection = ["Jim", "Kevin", "Pam", "Dwight"]
+        let newCollection = ["Angela", "Oscar"]
+        // When
+        let sut = collection.concatenate(with: newCollection)
+        // Then
+        XCTAssertEqual(sut.count, 6)
+        XCTAssertEqual(sut, ["Jim", "Kevin", "Pam", "Dwight", "Angela", "Oscar"])
+    }
+    
 }
