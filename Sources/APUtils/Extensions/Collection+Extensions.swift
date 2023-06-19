@@ -75,7 +75,7 @@ public extension Collection where Element: Publisher {
 }
 
 public extension RangeReplaceableCollection {
-    /// Makes the intersection bewteen two sets, keeping all the common elements
+    /// Generate the intersection bewteen two sets, keeping all the common elements
     /// - Parameter sequence: The set to intersect with
     /// - Returns: A set containing all the common elements
     func intersection<S: Sequence>(_ sequence: S) -> Self where S.Element == Element, Element: Hashable {
