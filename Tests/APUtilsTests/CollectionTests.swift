@@ -61,6 +61,7 @@ final class CollectionTests: XCTestCase {
         }
         
         // Then
+        XCTAssertEqual(collection[-1, default: "Michael"], "Michael")
         XCTAssertEqual(collection[0, default: "Michael"], "Dwight")
         XCTAssertEqual(collection[1, default: "Michael"], "Jim")
         XCTAssertEqual(collection[2, default: "Michael"], "Pam")

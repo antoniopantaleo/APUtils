@@ -30,10 +30,6 @@ public extension Collection {
     subscript(safe index: Index) -> Element? {
         return self.indices.lazy.contains(index) ? self[index] : nil
     }
-
-}
-
-public extension Array {
     
     /// Access safely to an item at a specified index, fallback to a default value if the index does no exist
     /// - Parameters:
@@ -46,8 +42,8 @@ public extension Array {
     /// collection[0, default: "Baz"] // returns "Foo"
     /// collection[2, default: "Baz"] // returns "Baz"
     /// ```
-    subscript(index: Int, default defaultValue: @autoclosure () -> Element) -> Element {
-        guard index >= 0, index < endIndex else { return defaultValue() }
+    subscript(index: Index, default defaultValue: @autoclosure () -> Element) -> Element {
+        guard index >= startIndex, index < endIndex else { return defaultValue() }
         return self[index]
     }
     
