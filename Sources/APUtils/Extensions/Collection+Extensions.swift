@@ -1,6 +1,32 @@
 import Foundation
 import Combine
 
+/// Evaluates whether any condition in a list is true.
+///
+/// This function takes an array of Booleans, representing conditions, and returns `true`
+/// if any of the conditions are `true`, or `false` if all are `false`.
+/// Evaluation is done lazily and stops as soon as a `true` condition is found.
+///
+/// ```swift
+/// let conditions = [false, false, true, false]
+/// let result = any(conditions)
+/// print(result)  // true
+/// ```
+///
+///
+/// - Parameter conditions: An array of Boolean values representing conditions to be evaluated.
+///
+/// - Returns: A Boolean value indicating whether any condition in the array is `true`.
+///
+/// - Note: The function will return `false` if the `conditions` array is empty.
+public func any(_ conditions: [Bool]) -> Bool {
+    for condition in conditions.lazy {
+        if condition { return true }
+    }
+    return false
+}
+
+
 public extension Collection where Element: Hashable {
     
     /// Find occurences of a specified element in a collection
