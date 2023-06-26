@@ -14,4 +14,7 @@ jobs:
     - name: Select Xcode
       run: sudo xcode-select -switch /Applications/Xcode.app && /usr/bin/xcodebuild -version
     - name: Run unit tests
-      run: swift test
+      run: swift test --enable-code-coverage
+    - name: Upload coverage reports
+      uses: codecov/codecov-action@v3
+      env: CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
