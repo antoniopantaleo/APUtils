@@ -44,3 +44,16 @@ let subView3 = UIView()
 
 containerView.addSubviews(subView1, subView2, subView3)
 ```
+
+You can add a subview and instantly activate its constraints
+
+
+```swift
+let view = UIView.autolayout
+let button = UIButton.autolayout
+
+view.addSubview(button) { view, button in
+    button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+    button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+}
+```

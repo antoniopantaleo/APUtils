@@ -47,6 +47,24 @@ final class UIViewTests: XCTestCase {
         XCTAssertFalse(view.translatesAutoresizingMaskIntoConstraints)
     }
     
+    func testUIView_constraintActivation() {
+        // Given
+        let sut = UIView.autolayout
+        let button = UIButton.autolayout
+        // When
+        sut.addSubview(button)
+        NSLayoutConstraint.activate {
+            button.centerXAnchor.constraint(equalTo: sut.centerXAnchor)
+            button.centerYAnchor.constraint(equalTo: sut.centerYAnchor)
+            button.widthAnchor.constraint(equalToConstant: 20)
+            button.heightAnchor.constraint(equalToConstant: 20)
+        }
+        // Then
+        XCTAssertEqual(sut.subviews.count, 1)
+        XCTAssertEqual(sut.constraints.count, 2)
+        XCTAssertEqual(button.constraints.count, 2)
+    }
+    
     //MARK: Add Subviews
     func testUIView_init_noSubviews() {
         // Given
@@ -65,6 +83,35 @@ final class UIViewTests: XCTestCase {
         containerView.addSubviews(view1, view2, view3)
         // Then
         XCTAssertEqual(containerView.subviews.count, 3)
+    }
+    
+    func testUIView_addSubview_activateConstraints_withEmptyClosure() {
+        // Given
+        let sut = UIView.autolayout
+        let button = UIButton.autolayout
+        // When
+        sut.addSubview(button) { _, _ in }
+        // Then
+        XCTAssertEqual(sut.subviews.count, 1)
+        XCTAssertEqual(sut.constraints.count, 0)
+        XCTAssertEqual(button.constraints.count, 0)
+    }
+    
+    func testUIView_addSubview_activateConstraints() {
+        // Given
+        let sut = UIView.autolayout
+        let button = UIButton.autolayout
+        // When
+        sut.addSubview(button) { view, button in
+            button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            button.widthAnchor.constraint(equalToConstant: 20)
+            button.heightAnchor.constraint(equalToConstant: 20)
+        }
+        // Then
+        XCTAssertEqual(sut.subviews.count, 1)
+        XCTAssertEqual(sut.constraints.count, 2)
+        XCTAssertEqual(button.constraints.count, 2)
     }
     
     //MARK: IsVisible

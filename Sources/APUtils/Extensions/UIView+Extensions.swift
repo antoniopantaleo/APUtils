@@ -32,6 +32,29 @@ public extension UIView {
             self.addSubview($0)
         }
     }
+
+    /// Adds a subview to the current view and activates immediatly the provided layout constraints
+    /// - Parameters:
+    ///   - view: The view to add as a subview
+    ///   - constraints: A closure that defines the constraints between the views
+    ///
+    ///
+    /// ```swift
+    /// let view = UIView.autolayout
+    /// let button = UIButton.autolayout
+    ///
+    /// view.addSubview(button) { view, button in
+    ///     button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+    ///     button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+    /// }
+    /// ```
+    func addSubview<T: UIView>(
+        _ view: T,
+        @AutoLayoutBuilder constraints: (_ view: UIView, _ subview: T) -> [NSLayoutConstraint]
+    ) {
+        addSubview(view)
+        NSLayoutConstraint.activate(constraints(self, view))
+    }
     
 }
 
