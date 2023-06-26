@@ -10,7 +10,7 @@ import APUtils
 
 final class LRUCacheTests: XCTestCase {
 
-    private var cache: LRUCache<String,Int>!
+    private var cache: LRUCache<String, Int>!
     
     override func setUp() {
         super.setUp()

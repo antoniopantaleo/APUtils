@@ -29,6 +29,14 @@ let setB: Set<String> = ["Bar", "Baz"]
 let interception = setA.interception(setB) // returns ["Bar"]
 ```
 
+You can concatenate two sequences in a new one 
+
+```swift 
+let collectionOne = ["Jim", "Kevin", "Pam", "Dwight"]
+let collectionTwo = ["Angela", "Oscar"]
+
+let newCollection = collectionOne.concatenate(with: collectionTwo) // ["Jim", "Kevin", "Pam", "Dwight", "Angela", "Oscar"] 
+```
  
 
 If you use `Combine`, you can merge multiple Publishers into a single one and handles all the events in a single closure with `mergeToAnyPublisher`

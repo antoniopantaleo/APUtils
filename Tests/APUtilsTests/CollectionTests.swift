@@ -61,6 +61,7 @@ final class CollectionTests: XCTestCase {
         }
         
         // Then
+        XCTAssertEqual(collection[-1, default: "Michael"], "Michael")
         XCTAssertEqual(collection[0, default: "Michael"], "Dwight")
         XCTAssertEqual(collection[1, default: "Michael"], "Jim")
         XCTAssertEqual(collection[2, default: "Michael"], "Pam")
@@ -117,6 +118,53 @@ final class CollectionTests: XCTestCase {
         // Then
         XCTAssertEqual(intersection.count, 1)
         XCTAssertEqual(intersection.first!, "Jim")
+    }
+    
+    func testCollection_concatenate() {
+        // Given
+        let collection = ["Jim", "Kevin", "Pam", "Dwight"]
+        let newCollection = ["Angela", "Oscar"]
+        // When
+        let sut = collection.concatenate(with: newCollection)
+        // Then
+        XCTAssertEqual(sut.count, 6)
+        XCTAssertEqual(sut, ["Jim", "Kevin", "Pam", "Dwight", "Angela", "Oscar"])
+    }
+    
+    func testCollection_any_withAllFalse() {
+        // Given
+        let sut = [false, false, false, false]
+        // When
+        let result = any(sut)
+        // Then
+        XCTAssertFalse(result)
+    }
+    
+    func testCollection_any_withAllTrue() {
+        // Given
+        let sut = [true, true, true, true]
+        // When
+        let result = any(sut)
+        // Then
+        XCTAssertTrue(result)
+    }
+    
+    func testCollection_any_withOneTrue() {
+        // Given
+        let sut = [false, false, true, false]
+        // When
+        let result = any(sut)
+        // Then
+        XCTAssertTrue(result)
+    }
+    
+    func testCollection_any_emptyConditions() {
+        // Given
+        let sut: [Bool] = []
+        // When
+        let result = any(sut)
+        // Then
+        XCTAssertFalse(result)
     }
     
 }

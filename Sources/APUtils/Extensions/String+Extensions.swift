@@ -64,7 +64,7 @@ public extension String {
 public extension Data {
     /// Returns a UTF-8 encoded string representation of the data.
     ///
-    /// - Note: If the data is not valid UTF-8 encoded, `nil` is returned..
+    /// - Note: If the data is not valid UTF-8 encoded, `nil` is returned.
     var utf8: String? {
         String(data: self, encoding: .utf8)
     }
