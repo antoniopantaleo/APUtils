@@ -17,9 +17,8 @@ import Foundation
 ///
 ///
 /// ```swift
-/// mainThread {
-///     // Your code here. For example, updating UI elements.
-///     self.label.text = "Updated on the main thread"
+/// mainThread { [weak self] in
+///     self?.label.text = "Updated on the main thread"
 /// }
 /// ```
 ///
