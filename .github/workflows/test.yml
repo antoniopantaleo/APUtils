@@ -10,8 +10,13 @@ jobs:
     runs-on: macos-12
     name: Test iOS
     steps:
-    - uses: actions/checkout@v1
+    - uses: swift-actions/setup-swift@v1
+      with:
+        swift-version: "5.8"
     - name: Select Xcode
       run: sudo xcode-select -switch /Applications/Xcode.app && /usr/bin/xcodebuild -version
+    - uses: actions/checkout@v1
+    - name: Build package
+      run: swift build
     - name: Run unit tests
       run: swift test --parallel
