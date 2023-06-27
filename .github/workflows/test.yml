@@ -14,7 +14,7 @@ jobs:
     - name: Build package
       run: swift build
     - name: Run unit tests
-      run: swift test --parallel && ls -a
+      run: swift test --parallel && ls .build
     - name: Upload coverage reports
       uses: codecov/codecov-action@v3
       with:
