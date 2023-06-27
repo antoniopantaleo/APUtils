@@ -14,9 +14,9 @@ jobs:
     - name: Build package
       run: swift build
     - name: Run unit tests
-      run: swift test --parallel && ls .build
+      run: swift test --parallel --enable-code-coverage
     - name: Upload coverage reports
       uses: codecov/codecov-action@v3
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        files: .build/arm64-apple-macosx/debug/codecov/APUtils.json
+        files: .build/x86_64-apple-macosx/debug/codecov/APUtils.json
