@@ -14,4 +14,8 @@ jobs:
     - name: Build package
       run: swift build
     - name: Run unit tests
-      run: swift test --vv --parallel
+      run: swift test --parallel
+    - name: Upload coverage reports
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
