@@ -14,16 +14,9 @@ jobs:
     - name: Build package
       run: swift build
     - name: Run unit tests
-      run: swift test --parallel
-    - name: Preapre coverage
-      run: |
-        xcrun llvm-cov export \
-        -format="lcov" \
-        .build/debug/APUtilsPackageTests.xctest/Contents/MacOS/APUtilsPackageTests \
-        -instr-profile \
-        .build/debug/codecov/default.profdata > coverage.lcov
+      run: swift test --parallel && ls -a
     - name: Upload coverage reports
       uses: codecov/codecov-action@v3
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        files: coverage.lcov
+        files: .build/arm64-apple-macosx/debug/codecov/APUtils.json
