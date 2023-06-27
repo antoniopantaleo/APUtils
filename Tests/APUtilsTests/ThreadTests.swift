@@ -6,7 +6,7 @@
 //
 
 import XCTest
-import APUtils
+@testable import APUtils
 
 final class ThreadTests: XCTestCase {
     
