@@ -15,6 +15,14 @@ jobs:
       run: swift build
     - name: Run unit tests
       run: swift test --parallel --enable-code-coverage
+    - name: Prepare code coverage
+      run: |
+        xcrun llvm-cov \
+        export \
+        -format="lcov" \
+        .build/x86_64-apple-macosx/debug/APUtilsPackageTests.xctest/Contents/MacOS/APUtilsPackageTests \
+        -instr-profile \
+        .build/x86_64-apple-macosx/debug/codecov/default.profdata > coverage.lcov
     - name: Upload coverage reports
       uses: codecov/codecov-action@v3
       with:
@@ -22,4 +30,4 @@ jobs:
         swift: true
         os: macos
         fail_ci_if_error: true
-        files: .build/x86_64-apple-macosx/debug/codecov/APUtils.json
+        files: coverage.lcov
