@@ -1,0 +1,33 @@
+{
+  "configurations" : [
+    {
+      "id" : "8D185476-2DEE-4D6C-B269-478F93AAC2A5",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:",
+          "identifier" : "APUtils",
+          "name" : "APUtils"
+        }
+      ]
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "APUtilsTests",
+        "name" : "APUtilsTests"
+      }
+    }
+  ],
+  "version" : 1
+}
