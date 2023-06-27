@@ -12,7 +12,7 @@ final class ThreadTests: XCTestCase {
     
     func testThread_isMainThread() {
         // Given
-        let expectation = XCTestExpectation(description: "Code runs on main thread")
+        let expectation = expectation(description: "Code runs on main thread")
         let backgroundThread = DispatchQueue(label: "background", qos: .background)
         // When
         backgroundThread.async {
@@ -23,7 +23,7 @@ final class ThreadTests: XCTestCase {
                 expectation.fulfill()
             }
         }
-        wait(for: [expectation])
+        wait(for: [expectation], timeout: 2)
     }
     
 }
