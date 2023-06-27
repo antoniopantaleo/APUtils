@@ -19,4 +19,7 @@ jobs:
       uses: codecov/codecov-action@v3
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
+        swift: true
+        os: macos
+        fail_ci_if_error: true
         files: .build/x86_64-apple-macosx/debug/codecov/APUtils.json
