@@ -98,23 +98,23 @@ final class CollectionTests: XCTestCase {
         cancellable.cancel()
     }
     
-    func testCollection_setsIntersection_AtoB() {
+    func testCollection_intersection_AtoB() {
         // Given
-        let setA: Set = ["Michael", "Dwight", "Jim"]
-        let setB: Set = ["Jim", "Pam", "Kevin"]
+        let collectionA = ["Michael", "Dwight", "Jim"]
+        let collectionB = ["Jim", "Pam", "Kevin"]
         // When
-        let intersection = setA.intersection(setB)
+        let intersection = collectionA.intersection(collectionB)
         // Then
         XCTAssertEqual(intersection.count, 1)
         XCTAssertEqual(intersection.first!, "Jim")
     }
     
-    func testCollection_setsIntersection_BtoA() {
+    func testCollection_intersection_BtoA() {
         // Given
-        let setA: Set = ["Michael", "Dwight", "Jim"]
-        let setB: Set = ["Jim", "Pam", "Kevin"]
+        let collectionA = ["Michael", "Dwight", "Jim"]
+        let collectionB = ["Jim", "Pam", "Kevin"]
         // When
-        let intersection = setB.intersection(setA)
+        let intersection = collectionB.intersection(collectionA)
         // Then
         XCTAssertEqual(intersection.count, 1)
         XCTAssertEqual(intersection.first!, "Jim")

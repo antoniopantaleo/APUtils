@@ -14,14 +14,14 @@ final class StringTests: XCTestCase {
         // Given
         let string = "Hello World!"
         // Then
-        XCTAssertEqual(string[0..<4], "Hell")
+        XCTAssertEqual(string[1..<5], "ello")
     }
     
-    func testString_inclusive_subscript() {
+    func testString_partialRangeFrom_subscript() {
         // Given
         let string = "Hello World!"
         // Then
-        XCTAssertEqual(string[6..<8], "Wo")
+        XCTAssertEqual(string[6...], "World!")
     }
     
     func testString_loremIpsum_default() {
