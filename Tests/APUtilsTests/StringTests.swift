@@ -21,7 +21,7 @@ final class StringTests: XCTestCase {
         // Given
         let string = "Hello World!"
         // Then
-        XCTAssertEqual(string[6..<8], "Wo")
+        XCTAssertEqual(string[6...], "World!")
     }
     
     func testString_loremIpsum_default() {
