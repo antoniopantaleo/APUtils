@@ -100,8 +100,8 @@ final class CollectionTests: XCTestCase {
     
     func testCollection_setsIntersection_AtoB() {
         // Given
-        let setA: Set = ["Michael", "Dwight", "Jim"]
-        let setB: Set = ["Jim", "Pam", "Kevin"]
+        let setA = ["Michael", "Dwight", "Jim"]
+        let setB = ["Jim", "Pam", "Kevin"]
         // When
         let intersection = setA.intersection(setB)
         // Then
@@ -111,8 +111,8 @@ final class CollectionTests: XCTestCase {
     
     func testCollection_setsIntersection_BtoA() {
         // Given
-        let setA: Set = ["Michael", "Dwight", "Jim"]
-        let setB: Set = ["Jim", "Pam", "Kevin"]
+        let setA = ["Michael", "Dwight", "Jim"]
+        let setB = ["Jim", "Pam", "Kevin"]
         // When
         let intersection = setB.intersection(setA)
         // Then
