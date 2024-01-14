@@ -1,0 +1,33 @@
+{
+  "configurations" : [
+    {
+      "id" : "0E7DE5EE-4056-4065-AB1E-D6961F952A63",
+      "name" : "Test Configuration",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:",
+          "identifier" : "APUtils",
+          "name" : "APUtils"
+        }
+      ]
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "APUtilsTests",
+        "name" : "APUtilsTests"
+      }
+    }
+  ],
+  "version" : 1
+}
