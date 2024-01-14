@@ -38,6 +38,16 @@ final class RegexTests: XCTestCase {
         XCTAssertEqual(result[1], "456")
     }
     
+    func testRegex_getMatches_badRegex() throws {
+        // Given
+        let sut = "This is a string with numbers: 123, 456"
+        let regex = "[+"
+        // When
+        let result = sut.matches(for: regex)
+        // Then
+        XCTAssertTrue(result.isEmpty)
+    }
+    
     func testRegex_replace_goodRegex() {
         // Given
         let sut = "This is a regex with numbers: 123"
