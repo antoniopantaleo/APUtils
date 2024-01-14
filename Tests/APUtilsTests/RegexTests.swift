@@ -58,4 +58,14 @@ final class RegexTests: XCTestCase {
         XCTAssertEqual(result, "This is a regex with numbers: NUMBERS HERE")
     }
     
+    func testRegex_replace_badRegex() {
+        // Given
+        let sut = "This is a regex with numbers: 123"
+        let regex = "[+"
+        // When
+        let result = sut.replace(regex: regex, with: "NUMBERS HERE")
+        // Then
+        XCTAssertEqual(result, sut)
+    }
+    
 }
