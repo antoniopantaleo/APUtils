@@ -167,4 +167,11 @@ final class CollectionTests: XCTestCase {
         XCTAssertFalse(result)
     }
     
+    // MARK: - Helpers
+    
+    private struct Employee: Hashable {
+        let name: String
+        var department: String?
+    }
+    
 }

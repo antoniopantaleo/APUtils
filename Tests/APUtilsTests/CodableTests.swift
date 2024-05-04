@@ -46,4 +46,10 @@ final class CodableTests: XCTestCase {
         XCTAssertEqual(decoded, sut)
     }
 
+    //MARK: - Helpers
+    
+    private struct Employee: Codable, Equatable {
+        let name: String
+        var department: String?
+    }
 }

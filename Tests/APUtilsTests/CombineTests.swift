@@ -11,6 +11,20 @@ import APUtils
 
 final class CombineTests: XCTestCase {
     
+    private var cancellables: Set<AnyCancellable>!
+    
+    override func setUp() {
+        super.setUp()
+        cancellables = []
+    }
+    
+    override func tearDown() {
+        cancellables = nil
+        super.tearDown()
+    }
+    
+    
+    
     //MARK: Proving that Combine strongly retains its subscribers
     
     func test_sink_stronglyRetainsSubscriber() {
