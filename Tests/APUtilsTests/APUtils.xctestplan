@@ -27,6 +27,14 @@
         "identifier" : "APUtilsTests",
         "name" : "APUtilsTests"
       }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "MacroTests",
+        "name" : "MacroTests"
+      }
     }
   ],
   "version" : 1
