@@ -6,7 +6,11 @@
 //
 
 import Foundation
+#if canImport(UIKit)
+import UIKit
+#elseif canImport(AppKit)
 import AppKit
+#endif
 
 public protocol ExpressibleByNSAttribute {
     var value: String { get }
@@ -15,7 +19,13 @@ public protocol ExpressibleByNSAttribute {
 
 public struct Bold: ExpressibleByNSAttribute {
     public var attributes: [NSAttributedString.Key : Any]? {
-        [.font: NSFont.boldSystemFont(ofSize: 10)]
+        #if canImport(UIKit)
+        [.font: UIFont.boldSystemFont(ofSize: 17)]
+        #elseif canImport(AppKit)
+        [.font: NSFont.boldSystemFont(ofSize: 17)]
+        #else
+        nil
+        #endif
     }
     
     public let value: String
