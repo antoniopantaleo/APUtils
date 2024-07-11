@@ -6,6 +6,40 @@
 //
 
 import Foundation
+import AppKit
+
+@available(iOS 15, macOS 12, *)
+public protocol AttributedStringConvertible {
+    var attributedString: AttributedString { get }
+}
+
+@available(iOS 15, macOS 12, *)
+public struct Attributed: AttributedStringConvertible {
+    
+    public private(set) var attributedString: AttributedString
+    
+    public init<Value>(
+        _ attribute: WritableKeyPath<AttributeContainer, Value>,
+        _ value: Value,
+        @AttributedStringBuilder _ builder: () -> AttributedString
+    ) {
+        var container = AttributeContainer()
+        container[keyPath: attribute] = value
+        attributedString = builder()
+        attributedString.setAttributes(container)
+    }
+}
+
+@available(iOS 15, macOS 12, *)
+public struct NoSpace: AttributedStringConvertible  {
+    
+    public private(set) var attributedString: AttributedString
+    
+    public init(@AttributedStringBuilder _ builder: () -> AttributedString) {
+        attributedString = builder()
+    }
+    
+}
 
 // MARK: - Result Builder
 @resultBuilder
@@ -30,6 +64,14 @@ extension AttributedStringBuilder {
 
     public static func buildExpression(_ expression: String) -> AttributedString {
         return AttributedString(expression)
+    }
+    
+    public static func buildExpression(_ expression: Attributed) -> AttributedString {
+        expression.attributedString
+    }
+    
+    public static func buildExpression(_ expression: NoSpace) -> AttributedString {
+        expression.attributedString
     }
 }
 
