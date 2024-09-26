@@ -1,5 +1,5 @@
 //
-//  NSAttributedStringBuilder.swift
+//  AttributedStringBuilder.swift
 //
 //
 //  Created by Antonio Pantaleo on 10/07/24.
@@ -30,13 +30,32 @@ public struct Attributed: AttributedStringConvertible {
     }
 }
 
+struct NoSpaceAttributedStringKey: AttributedStringKey {
+    typealias Value = Bool
+    static var name: String = "noSpace"
+}
+
+struct NoSpaceScope: AttributeScope {
+    let noSpace: NoSpaceAttributedStringKey
+}
+
+@available(iOS 15, macOS 12, *)
+extension AttributeDynamicLookup {
+    subscript<T: AttributedStringKey>(dynamicMember keyPath: KeyPath<NoSpaceScope, T>) -> T {
+        return self[T.self]
+    }
+}
+
 @available(iOS 15, macOS 12, *)
 public struct NoSpace: AttributedStringConvertible  {
     
     public private(set) var attributedString: AttributedString
     
     public init(@AttributedStringBuilder _ builder: () -> AttributedString) {
+        var container = AttributeContainer()
+        container.noSpace = true
         attributedString = builder()
+        attributedString.setAttributes(container)
     }
     
 }

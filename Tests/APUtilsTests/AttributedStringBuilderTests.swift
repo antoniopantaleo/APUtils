@@ -1,5 +1,5 @@
 //
-//  NSAttributedStringBuilderTests.swift
+//  AttributedStringBuilderTests.swift
 //  
 //
 //  Created by Antonio Pantaleo on 10/07/24.
@@ -9,7 +9,7 @@ import XCTest
 import APUtils
 
 @available(iOS 15, macOS 12, *)
-final class NSAttributedStringBuilderTests: XCTestCase {
+final class AttributedStringBuilderTests: XCTestCase {
     
     func test_onlyStringsCreatesSimpleStringWithNoAttributes() {
         let sut = AttributedString {
@@ -32,6 +32,18 @@ final class NSAttributedStringBuilderTests: XCTestCase {
         XCTAssertEqual(sut.string, "Hello World")
         XCTAssertTrue(sut.attributes(at: 0..<5).isEmpty)
         XCTAssertEqual(sut.attributes(at: 6..<sut.string.count)[.foregroundColor] as? NSColor, .red)
+    }
+    
+    func test_noSpace() {
+        let sut = AttributedString {
+            "Hi"
+            NoSpace {
+                "Hello"
+                "World"
+            }
+            "Again"
+        }
+        XCTAssertEqual(sut.string, "Hi HelloWorld Again")
     }
 }
 
