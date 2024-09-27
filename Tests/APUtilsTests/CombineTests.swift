@@ -9,21 +9,7 @@ import XCTest
 import Combine
 import APUtils
 
-final class CombineTests: XCTestCase {
-    
-    private var cancellables: Set<AnyCancellable>!
-    
-    override func setUp() {
-        super.setUp()
-        cancellables = []
-    }
-    
-    override func tearDown() {
-        cancellables = nil
-        super.tearDown()
-    }
-    
-    
+final class CombineTests: XCCombineTestCase {
     
     //MARK: Proving that Combine strongly retains its subscribers
     
