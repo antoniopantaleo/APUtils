@@ -14,7 +14,7 @@ final class LRUCacheTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        cache = .init(maxCapacity: 4)
+        cache = LRUCache(maxCapacity: 4)
     }
     
     override func tearDown() {
@@ -35,6 +35,14 @@ final class LRUCacheTests: XCTestCase {
         cache["zero"] = 1
         // Then
         XCTAssertEqual(cache["zero"], 1)
+    }
+    
+    func testLRUCache_removeValue() {
+        // When
+        cache["zero"] = 0
+        cache["zero"] = nil
+        // Then
+        XCTAssertNil(cache["zero"])
     }
     
     func testLRUCache_addValues_overCapacity() {
