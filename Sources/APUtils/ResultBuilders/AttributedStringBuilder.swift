@@ -1,20 +1,14 @@
 //
-//  NSAttributedStringBuilder.swift
+//  AttributedStringBuilder.swift
 //
 //
 //  Created by Antonio Pantaleo on 10/07/24.
 //
 
 import Foundation
-import AppKit
 
 @available(iOS 15, macOS 12, *)
-public protocol AttributedStringConvertible {
-    var attributedString: AttributedString { get }
-}
-
-@available(iOS 15, macOS 12, *)
-public struct Attributed: AttributedStringConvertible {
+public struct Attributed {
     
     public private(set) var attributedString: AttributedString
     
@@ -25,20 +19,14 @@ public struct Attributed: AttributedStringConvertible {
     ) {
         var container = AttributeContainer()
         container[keyPath: attribute] = value
-        attributedString = builder()
-        attributedString.setAttributes(container)
+        var nestedString = builder()
+        for run in nestedString.runs {
+            var updatedContainer = run.attributes
+            updatedContainer.merge(container)
+            nestedString.setAttributes(updatedContainer)
+        }
+        attributedString = nestedString
     }
-}
-
-@available(iOS 15, macOS 12, *)
-public struct NoSpace: AttributedStringConvertible  {
-    
-    public private(set) var attributedString: AttributedString
-    
-    public init(@AttributedStringBuilder _ builder: () -> AttributedString) {
-        attributedString = builder()
-    }
-    
 }
 
 // MARK: - Result Builder
@@ -70,9 +58,6 @@ extension AttributedStringBuilder {
         expression.attributedString
     }
     
-    public static func buildExpression(_ expression: NoSpace) -> AttributedString {
-        expression.attributedString
-    }
 }
 
 // MARK: - AttributedString convenience init
