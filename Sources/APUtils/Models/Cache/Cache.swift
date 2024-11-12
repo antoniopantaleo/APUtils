@@ -24,8 +24,8 @@ import Foundation
 /// let value = cache[someKey] // retrieving data
 /// cache[someKey] = nil // deleting data
 /// ```
-public protocol Cache {
-    associatedtype Key: Hashable
+public protocol Cache<Key, Value> where Key: Hashable {
+    associatedtype Key
     associatedtype Value
     
     subscript(key: Key) -> Value? { get set }
