@@ -32,7 +32,11 @@ public extension UIView {
             self.addSubview($0)
         }
     }
+    
+}
 
+public extension UIView {
+    
     /// Adds a subview to the current view and activates immediatly the provided layout constraints
     /// - Parameters:
     ///   - view: The view to add as a subview
@@ -52,8 +56,45 @@ public extension UIView {
         _ view: T,
         @AutoLayoutBuilder constraints: (_ view: UIView, _ subview: T) -> [NSLayoutConstraint]
     ) {
-        addSubview(view)
-        NSLayoutConstraint.activate(constraints(self, view))
+        addSubviewAndActivateConstraints(
+            subview: view,
+            constraints: constraints(self, view)
+        )
+    }
+
+    /// Adds a subview to the current view and activates immediatly the provided layout constraints
+    /// - Parameters:
+    ///   - viewBuilder: The view closure to add as a subview
+    ///   - constraints: A closure that defines the constraints between the views
+    ///
+    ///
+    /// ```swift
+    /// let view = UIView.autolayout
+    ///
+    /// view.addSubview {
+    ///     let button = UIButton.autolayout
+    ///     button.tint = .blue
+    ///     button.text = "Hello world"
+    ///     return button
+    /// } constraints: { view, button in
+    ///     button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+    ///     button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+    /// }
+    /// ```
+    func addSubview<T: UIView>(
+        _ viewBuilder: () -> T,
+        @AutoLayoutBuilder constraints: (_ view: UIView, _ subview: T) -> [NSLayoutConstraint]
+    ) {
+        let view = viewBuilder()
+        addSubviewAndActivateConstraints(
+            subview: view,
+            constraints: constraints(self, view)
+        )
+    }
+    
+    private func addSubviewAndActivateConstraints(subview: UIView, constraints: [NSLayoutConstraint]) {
+        addSubview(subview)
+        NSLayoutConstraint.activate(constraints)
     }
     
 }

@@ -114,6 +114,27 @@ final class UIViewTests: XCTestCase {
         XCTAssertEqual(button.constraints.count, 2)
     }
     
+    func testUIView_addSubview_viewBuilder_activateConstraints() {
+        // Given
+        let sut = UIView.autolayout
+        var button: UIButton?
+        // When
+        sut.addSubview {
+            let view = UIButton.autolayout
+            button = view
+            return view
+        } constraints: { view, button in
+            button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            button.widthAnchor.constraint(equalToConstant: 20)
+            button.heightAnchor.constraint(equalToConstant: 20)
+        }
+        // Then
+        XCTAssertEqual(sut.subviews.count, 1)
+        XCTAssertEqual(sut.constraints.count, 2)
+        XCTAssertEqual(button?.constraints.count, 2)
+    }
+    
     //MARK: IsVisible
     func testUIView_isVisible() {
         // Given
