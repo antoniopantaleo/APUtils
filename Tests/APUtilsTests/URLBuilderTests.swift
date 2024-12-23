@@ -108,4 +108,16 @@ final class URLBuilderTests: XCTestCase {
         }
         XCTAssertEqual(sut?.absoluteString, "https://www.example.com/path?key=value-two&key-two=value")
     }
+    
+    func test_voidExpressions() {
+        let sut = URL {
+            print("Building scheme")
+            Scheme("https")
+            print("Building host")
+            Host("www.example.com")
+            print("Building path")
+            Path("/path")
+        }
+        XCTAssertEqual(sut?.absoluteString, "https://www.example.com/path")
+    }
 }

@@ -17,8 +17,22 @@ public enum URLBuilder {
     }
 }
 
+extension URLBuilder {
+    public static func buildExpression(_ expression: Void) -> URLComponentNode {
+        EmptyURLComponentNode()
+    }
+    
+    public static func buildExpression(_ expression: URLComponentNode) -> URLComponentNode {
+        expression
+    }
+}
+
 public protocol URLComponentNode {
     func update(_ urlComponents: inout URLComponents)
+}
+
+public struct EmptyURLComponentNode: URLComponentNode {
+    public func update(_ urlComponents: inout URLComponents) {}
 }
 
 public struct Host: URLComponentNode {
