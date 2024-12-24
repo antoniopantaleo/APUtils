@@ -85,7 +85,7 @@ final class URLBuilderTests: XCTestCase {
         XCTAssertEqual(sut?.absoluteString, "https://www.example.com/path?key=value&key2=value2&key3=value3#fragment")
     }
     
-    func test_multipleValuesOverridePrevious() {
+    func test_multipleValuesOverridePreviousOnes() {
         let sut = URL {
             Path("/hello-world")
             Scheme("https")
@@ -97,7 +97,7 @@ final class URLBuilderTests: XCTestCase {
         XCTAssertEqual(sut?.absoluteString, "http://www.example.org/path")
     }
     
-    func test_queryItemsWithSameKeyOverridePrevious() {
+    func test_queryItemsWithSameKeyOverridePreviousOnes() {
         let sut = URL {
             Scheme("https")
             Host("www.example.com")

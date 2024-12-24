@@ -7,6 +7,11 @@
 
 import Foundation
 
+public protocol URLComponentNode {
+    func update(_ urlComponents: inout URLComponents)
+}
+
+// MARK: - Result Builder
 @resultBuilder
 public enum URLBuilder {
     public static func buildBlock(_ components: URLComponentNode...) -> URL? {
@@ -17,6 +22,7 @@ public enum URLBuilder {
     }
 }
 
+// MARK: - Expressions
 extension URLBuilder {
     public static func buildExpression(_ expression: Void) -> URLComponentNode {
         EmptyURLComponentNode()
@@ -27,14 +33,7 @@ extension URLBuilder {
     }
 }
 
-public protocol URLComponentNode {
-    func update(_ urlComponents: inout URLComponents)
-}
-
-public struct EmptyURLComponentNode: URLComponentNode {
-    public func update(_ urlComponents: inout URLComponents) {}
-}
-
+// MARK: - Nodes
 public struct Host: URLComponentNode {
     private let host: String
     
@@ -90,6 +89,11 @@ extension URLQueryItem: URLComponentNode {
     }
 }
 
+public struct EmptyURLComponentNode: URLComponentNode {
+    public func update(_ urlComponents: inout URLComponents) {}
+}
+
+// MARK: - URL convenience init
 extension URL {
     public init?(@URLBuilder _ builder: () -> URL?) {
         guard let url = builder() else { return nil }
