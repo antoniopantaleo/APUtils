@@ -102,7 +102,7 @@ public extension UIView {
 public extension UICollectionView {
     
     /// Activate autolayout for the collection view
-    /// - Parameter collectoinViewLayout: The layout to use
+    /// - Parameter collectionViewLayout: The layout to use
     static func autolayout(collectionViewLayout: UICollectionViewLayout) -> Self {
         let `self` = Self(
             frame: .zero,
