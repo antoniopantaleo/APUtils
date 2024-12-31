@@ -14,6 +14,9 @@ public enum AutoLayoutBuilder {
     public static func buildBlock(_ components: [NSLayoutConstraint]...) -> [NSLayoutConstraint] {
         components.flatMap { $0 }
     }
+}
+
+extension AutoLayoutBuilder {
     
     public static func buildExpression(_ expression: NSLayoutConstraint) -> [NSLayoutConstraint] {
         [expression]
