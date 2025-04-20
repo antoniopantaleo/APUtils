@@ -1,5 +1,5 @@
 //
-//  AutoLayoutBuilder.swift
+//  NSLayoutConstraintsBuilder.swift
 //  
 //
 //  Created by Antonio on 26/02/23.
@@ -9,14 +9,14 @@ import UIKit
 
 /// Create autolayout constraints with a SwiftUI like DSL
 @resultBuilder
-public enum AutoLayoutBuilder {
+public enum NSLayoutConstraintsBuilder {
     
     public static func buildBlock(_ components: [NSLayoutConstraint]...) -> [NSLayoutConstraint] {
         components.flatMap { $0 }
     }
 }
 
-extension AutoLayoutBuilder {
+extension NSLayoutConstraintsBuilder {
     
     public static func buildExpression(_ expression: NSLayoutConstraint) -> [NSLayoutConstraint] {
         [expression]
@@ -84,7 +84,7 @@ public extension NSLayoutConstraint {
     ///     print("Constraint activation finished")
     /// }
     /// ```
-    static func activate(@AutoLayoutBuilder constraints: () -> [NSLayoutConstraint]) {
+    static func activate(@NSLayoutConstraintsBuilder constraints: () -> [NSLayoutConstraint]) {
         activate(constraints())
     }
     

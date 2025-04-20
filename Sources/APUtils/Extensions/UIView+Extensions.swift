@@ -54,7 +54,7 @@ public extension UIView {
     /// ```
     func addSubview<T: UIView>(
         _ view: T,
-        @AutoLayoutBuilder constraints: (_ view: UIView, _ subview: T) -> [NSLayoutConstraint]
+        @NSLayoutConstraintsBuilder constraints: (_ view: UIView, _ subview: T) -> [NSLayoutConstraint]
     ) {
         addSubviewAndActivateConstraints(
             subview: view,
@@ -83,7 +83,7 @@ public extension UIView {
     /// ```
     func addSubview<T: UIView>(
         _ viewBuilder: () -> T,
-        @AutoLayoutBuilder constraints: (_ view: UIView, _ subview: T) -> [NSLayoutConstraint]
+        @NSLayoutConstraintsBuilder constraints: (_ view: UIView, _ subview: T) -> [NSLayoutConstraint]
     ) {
         let view = viewBuilder()
         addSubviewAndActivateConstraints(

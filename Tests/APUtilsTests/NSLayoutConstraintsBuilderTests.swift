@@ -1,5 +1,5 @@
 //
-//  AutoLayoutBuilderTests.swift
+//  NSLayoutConstraintsBuilderTests.swift
 //  
 //
 //  Created by Antonio on 26/02/23.
@@ -9,7 +9,7 @@
 import XCTest
 import UIKit
 
-final class AutoLayoutBuilderTests: XCTestCase {
+final class NSLayoutConstraintsBuilderTests: XCTestCase {
     
     private var sut: UIView!
     
@@ -23,7 +23,7 @@ final class AutoLayoutBuilderTests: XCTestCase {
         super.tearDown()
     }
     
-    func testAutoLayoutBuilder_oneView_activateOneConstraint() {
+    func testNSLayoutConstraintsBuilder_oneView_activateOneConstraint() {
         // When
         NSLayoutConstraint.activate {
             sut.heightAnchor.constraint(equalToConstant: 100)
@@ -32,7 +32,7 @@ final class AutoLayoutBuilderTests: XCTestCase {
         assert(sut.constraints, toBeEqualTo: [(.height, 100)])
     }
     
-    func testAutoLayoutBuilder_oneView_activateMoreThanOneConstraints() {
+    func testNSLayoutConstraintsBuilder_oneView_activateMoreThanOneConstraints() {
         // When
         NSLayoutConstraint.activate {
             sut.heightAnchor.constraint(equalToConstant: 100)
@@ -42,7 +42,7 @@ final class AutoLayoutBuilderTests: XCTestCase {
         assert(sut.constraints, toBeEqualTo: [(.height, 100), (.width, 150)])
     }
     
-    func testAutoLayoutBuilder_oneView_activateConditionalsConstraints() {
+    func testNSLayoutConstraintsBuilder_oneView_activateConditionalsConstraints() {
         // Given
         let condition = false
         // When
@@ -56,7 +56,7 @@ final class AutoLayoutBuilderTests: XCTestCase {
         assert(sut.constraints, toBeEqualTo: [(.height, 100)])
     }
     
-    func testAutoLayoutBuilder_oneView_activateConditionalsConstraints_whenConditionIsTrue() {
+    func testNSLayoutConstraintsBuilder_oneView_activateConditionalsConstraints_whenConditionIsTrue() {
         // Given
         let condition = true
         // When
@@ -77,6 +77,9 @@ final class AutoLayoutBuilderTests: XCTestCase {
         _ constraints: [NSLayoutConstraint],
         toBeEqualTo expectedConstraints: [(attribute: NSLayoutConstraint.Attribute, constant: CGFloat)]
     ) {
+        guard constraints.count == expectedConstraints.count else {
+            return XCTFail("Expected \(expectedConstraints.count) constraints, but got \(constraints.count)")
+        }
         zip(constraints, expectedConstraints).forEach { (constraint, expectedConstraint) in
             XCTAssertEqual(constraint.firstAttribute, expectedConstraint.attribute)
             XCTAssertEqual(constraint.constant, expectedConstraint.constant)
