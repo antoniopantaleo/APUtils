@@ -8,18 +8,25 @@
 import Foundation
 
 public protocol URLComponentNode {
-    func update(_ urlComponents: inout URLComponents)
+    func transform(_ urlComponents: URLComponents) -> URLComponents
 }
 
 // MARK: - Result Builder
 @resultBuilder
 public enum URLBuilder {
-    public static func buildBlock(_ components: URLComponentNode...) -> URL? {
-        guard !components.isEmpty else { return nil }
-        return components.reduce(into: URLComponents()) { urlComponents, component in
-            component.update(&urlComponents)
-        }.url
+    public static func buildBlock(_ components: URLComponentNode...) -> URLComponentNode {
+        guard !components.isEmpty else { return EmptyURLComponentNode() }
+        let urlComponents = components.reduce(URLComponents()) { partialResult, node in
+            node.transform(partialResult)
+        }
+        return URLComponentsComponentNode(urlComponents: urlComponents)
     }
+    
+    public static func buildFinalResult(_ component: URLComponentNode) -> URL? {
+        guard let node = component as? URLComponentsComponentNode else { return nil }
+        return node.urlComponents.url
+    }
+    
 }
 
 // MARK: - Expressions
@@ -41,8 +48,10 @@ public struct Host: URLComponentNode {
         self.host = host
     }
     
-    public func update(_ urlComponents: inout URLComponents) {
-        urlComponents.host = host
+    public func transform(_ urlComponents: URLComponents) -> URLComponents {
+        var copy = urlComponents
+        copy.host = host
+        return copy
     }
 }
 
@@ -53,8 +62,10 @@ public struct Scheme: URLComponentNode {
         self.scheme = scheme
     }
     
-    public func update(_ urlComponents: inout URLComponents) {
-        urlComponents.scheme = scheme
+    public func transform(_ urlComponents: URLComponents) -> URLComponents {
+        var copy = urlComponents
+        copy.scheme = scheme
+        return copy
     }
 }
 
@@ -65,8 +76,10 @@ public struct Path: URLComponentNode {
         self.path = path
     }
     
-    public func update(_ urlComponents: inout URLComponents) {
-        urlComponents.path = path
+    public func transform(_ urlComponents: URLComponents) -> URLComponents {
+        var copy = urlComponents
+        copy.path = path
+        return copy
     }
 }
 
@@ -77,20 +90,39 @@ public struct Fragment: URLComponentNode {
         self.fragment = fragment
     }
     
-    public func update(_ urlComponents: inout URLComponents) {
-        urlComponents.fragment = fragment
+    public func transform(_ urlComponents: URLComponents) -> URLComponents {
+        var copy = urlComponents
+        copy.fragment = fragment
+        return copy
     }
 }
 
 extension URLQueryItem: URLComponentNode {
-    public func update(_ urlComponents: inout URLComponents) {
-        urlComponents.queryItems?.removeAll { $0.name == name }
-        urlComponents.queryItems = (urlComponents.queryItems ?? []) + [self]
+    public func transform(_ urlComponents: URLComponents) -> URLComponents {
+        var copy = urlComponents
+        copy.queryItems?.removeAll { $0.name == name }
+        copy.queryItems = (copy.queryItems ?? []) + [self]
+        return copy
     }
 }
 
-public struct EmptyURLComponentNode: URLComponentNode {
-    public func update(_ urlComponents: inout URLComponents) {}
+struct EmptyURLComponentNode: URLComponentNode {
+    func transform(_ urlComponents: URLComponents) -> URLComponents {
+        return urlComponents
+    }
+}
+
+struct URLComponentsComponentNode: URLComponentNode {
+    let urlComponents: URLComponents
+    
+    init(urlComponents: URLComponents) {
+        self.urlComponents = urlComponents
+    }
+    
+    func transform(_ urlComponents: URLComponents) -> URLComponents {
+        urlComponents
+    }
+
 }
 
 // MARK: - URL convenience init

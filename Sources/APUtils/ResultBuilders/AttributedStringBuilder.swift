@@ -10,7 +10,7 @@ import Foundation
 @available(iOS 15, macOS 12, *)
 public struct Attributed {
     
-    public private(set) var attributedString: AttributedString
+    public let attributedString: AttributedString
     
     public init<Value>(
         _ attribute: WritableKeyPath<AttributeContainer, Value>,
