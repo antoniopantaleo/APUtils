@@ -35,4 +35,11 @@ final class TypealiasTests: XCTestCase {
         XCTAssertEqual(pair.first, michael)
         XCTAssertEqual(pair.second, dwight)
     }
+    
+    // MARK: - Helpers
+    
+    private struct Employee: Hashable {
+        let name: String
+        var department: String?
+    }
 }

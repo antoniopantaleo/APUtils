@@ -27,6 +27,7 @@ import Foundation
 /// - Warning: Be careful when calling this function from the main thread with a block that could
 /// potentially block the thread (like waiting for a network response), as it could lead to a deadlock.
 ///
+@available(*, deprecated, message: "Uncontrolled usage of threads is unsafe. Please consider using new async/await or actor APIs")
 public func mainThread(_ executionBlock: () -> Void) {
     if !Thread.isMainThread {
         DispatchQueue.main.sync { executionBlock() }

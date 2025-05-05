@@ -12,6 +12,8 @@ import Foundation
 /// The cache keeps in memory last used items.
 /// The oldest get removed when the number of items exceeds the capacity of the cache
 ///
+/// ## Example
+///
 /// ```swift
 /// cache["zero"] = 0
 /// cache["one"] = 1
@@ -25,9 +27,10 @@ import Foundation
 /// print(cache["four"])    // 4
 /// print(cache["zero"])    // nil
 /// ```
-public class LRUCache<Key: Hashable, Value> {
-    private var cache: [Key:Value] = [:]
-    private var recentlyUsedKeys: [Key] = []
+public class LRUCache<Key: Hashable, Value>: Cache {
+    
+    private var cache = [Key:Value]()
+    private var recentlyUsedKeys = [Key]()
     private let maxCapacity: Int
     
     /// Creates a new LRUCache object

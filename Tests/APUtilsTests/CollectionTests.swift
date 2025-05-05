@@ -98,23 +98,23 @@ final class CollectionTests: XCTestCase {
         cancellable.cancel()
     }
     
-    func testCollection_intersection_AtoB() {
+    func testCollection_setsIntersection_AtoB() {
         // Given
-        let collectionA = ["Michael", "Dwight", "Jim"]
-        let collectionB = ["Jim", "Pam", "Kevin"]
+        let setA = ["Michael", "Dwight", "Jim"]
+        let setB = ["Jim", "Pam", "Kevin"]
         // When
-        let intersection = collectionA.intersection(collectionB)
+        let intersection = setA.intersection(setB)
         // Then
         XCTAssertEqual(intersection.count, 1)
         XCTAssertEqual(intersection.first!, "Jim")
     }
     
-    func testCollection_intersection_BtoA() {
+    func testCollection_setsIntersection_BtoA() {
         // Given
-        let collectionA = ["Michael", "Dwight", "Jim"]
-        let collectionB = ["Jim", "Pam", "Kevin"]
+        let setA = ["Michael", "Dwight", "Jim"]
+        let setB = ["Jim", "Pam", "Kevin"]
         // When
-        let intersection = collectionB.intersection(collectionA)
+        let intersection = setB.intersection(setA)
         // Then
         XCTAssertEqual(intersection.count, 1)
         XCTAssertEqual(intersection.first!, "Jim")
@@ -165,6 +165,13 @@ final class CollectionTests: XCTestCase {
         let result = any(sut)
         // Then
         XCTAssertFalse(result)
+    }
+    
+    // MARK: - Helpers
+    
+    private struct Employee: Hashable {
+        let name: String
+        var department: String?
     }
     
 }

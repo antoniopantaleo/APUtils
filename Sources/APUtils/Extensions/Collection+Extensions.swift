@@ -1,5 +1,4 @@
 import Foundation
-import Combine
 
 /// Evaluates whether any condition in a list is true.
 ///
@@ -73,31 +72,6 @@ public extension Collection {
         return self[index]
     }
     
-}
-
-public extension Collection where Element: Publisher {
-    /// Merge a collection of publishers into a single publisher
-    ///
-    /// All the publisher must share the same `Output` and `Failure` type
-    ///
-    ///
-    /// ```swift
-    /// let publisher1 = Just(1)
-    /// let publisher2 = Just(2)
-    /// let publisher3 = Just(3)
-    ///
-    /// [publisher1, publisher2, publisher3]
-    ///   .mergeToAnyPublisher()
-    ///   .receive(on: RunLoop.main)
-    ///   .sink { number in
-    ///       // logic here
-    ///   }
-    ///   .store(in: &cancellables)
-    /// ```
-    /// - Returns: A new publisher that emits the same `Element.Output` and `Element.Failure` whenever any of the elements emits a value
-    func mergeToAnyPublisher() -> AnyPublisher<Element.Output, Element.Failure> {
-        Publishers.MergeMany(self).eraseToAnyPublisher()
-    }
 }
 
 public extension RangeReplaceableCollection {

@@ -6,9 +6,9 @@ Handy DSLs structures
 
 ResultBuilders are a simple way to compose and manage code for different scenarios
 
-### AutoLayoutBuilder
+### NSLayoutConstraintsBuilder
 
-`AutoLayoutBuilder` lets you create a collection of `NSLayoutConstraint` inside a closure. 
+`NSLayoutConstraintsBuilder` lets you create a collection of `NSLayoutConstraint` inside a closure. 
 Here you can use if statements, for loops and more
 
 Activate a closure of `NSLayoutConstraint`s with `activate(_)`

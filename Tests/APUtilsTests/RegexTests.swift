@@ -10,14 +10,6 @@ import XCTest
 
 final class RegexTests: XCTestCase {
     
-    func testRegex_emptyRegex() {
-        // Given
-        let sut = "This is a string with numbers: 123"
-        let regex = ""
-        // Then
-        XCTAssertFalse(sut =~ regex)
-    }
-    
     func testRegex_matches_goodRegex() {
         // Given
         let sut = "This is a string with numbers: 123"
@@ -26,26 +18,15 @@ final class RegexTests: XCTestCase {
         XCTAssertTrue(sut =~ regex)
     }
     
-    func testRegex_matches_goodRegex_emptyString() {
+    func testRegex_matches_badRegex() {
         // Given
-        let sut = ""
-        let regex = "[0-9]+"
+        let sut = "This is a string with numbers: 123"
+        let regex = "[+"
         // Then
         XCTAssertFalse(sut =~ regex)
     }
-
     
-    func testRegex_getMatches_emptyRegex() {
-        // Given
-        let sut = "This is a string with numbers: 123, 456"
-        let regex = ""
-        // When
-        let result = sut.matches(for: regex)
-        // Then
-        XCTAssertTrue(result.isEmpty)
-    }
-    
-    func testRegex_getMatches_goodRegex() {
+    func testRegex_getMatches_goodRegex() throws {
         // Given
         let sut = "This is a string with numbers: 123, 456"
         let regex = "[0-9]+"
@@ -57,10 +38,10 @@ final class RegexTests: XCTestCase {
         XCTAssertEqual(result[1], "456")
     }
     
-    func testRegex_getMatches_goodRegex_emptyString() {
+    func testRegex_getMatches_badRegex() throws {
         // Given
-        let sut = ""
-        let regex = "[0-9]+"
+        let sut = "This is a string with numbers: 123, 456"
+        let regex = "[+"
         // When
         let result = sut.matches(for: regex)
         // Then
@@ -77,15 +58,14 @@ final class RegexTests: XCTestCase {
         XCTAssertEqual(result, "This is a regex with numbers: NUMBERS HERE")
     }
     
-    func testRegex_replace_emptyRegex() {
+    func testRegex_replace_badRegex() {
         // Given
         let sut = "This is a regex with numbers: 123"
-        let regex = ""
+        let regex = "[+"
         // When
         let result = sut.replace(regex: regex, with: "NUMBERS HERE")
         // Then
-        XCTAssertEqual(result, "This is a regex with numbers: 123")
+        XCTAssertEqual(result, sut)
     }
-
     
 }
